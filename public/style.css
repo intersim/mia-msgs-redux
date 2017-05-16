@@ -1,0 +1,46 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background: rgba(100,149,237,0.8);
+	font-family: 'Helvetica';
+	margin-right: 5rem;
+	margin-left: 5rem;
+}
+
+label {
+	font-weight: bold;
+}
+
+input {
+	margin-bottom: 1.25rem;
+	width: 100%;
+	padding: 0.5rem;
+}
+
+input:focus {
+	outline: 0;
+}
+
+li {
+	list-style-type: none;
+}
+
+button {
+	padding: 1.5rem;
+	border-radius: 10%;
+	border: 0;
+	font-weight: bold;
+	font-size: 1rem;
+	background: rgba(100,149,237,1);
+}
+
+button:hover {
+	background: rgba(100,149,237,0.66);
+	cursor: pointer;
+}
+
+button:focus {
+	outline: 0;
+}
