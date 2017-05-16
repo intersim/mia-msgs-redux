@@ -22,18 +22,16 @@ app.use('/api', router);
 app.get('/', (req, res, next) => res.send(path.join(__dirname, './public/index.html')));
 
 // error-handling middleware
-app.use(function (err, req, res, next) {
-	var status = err.status || 500;
+app.use((err, req, res, next) => {
+	const status = err.status || 500;
 	console.error(err);
 	res.send("There was a problem: ", status);
 });
 
 // sync w/ db and app listen on a port
 db.sync()
-.then(function(){
+.then(() => {
 	console.log('All sync\'d with the db!');
-	app.listen(1234, function(){
-		console.log('Server is listening intently on port 1234...')
-	})
+	app.listen(1234, () => console.log('Server is listening on port 1234...'))
 })
 .catch(console.error)

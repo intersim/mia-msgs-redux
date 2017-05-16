@@ -1,4 +1,4 @@
-const { db, User, Message } = require('./models');
+const { db, Message } = require('./models');
 
 const messages = [
 	{
@@ -16,17 +16,11 @@ const messages = [
 ];
 
 db.sync({force: true})
-.then(function () {
+.then(() => {
   console.log("Dropped old data, now inserting new data");
-  const creatingMessages = messages.map(function (message) {
-    return Message.create(message, { include: [ User ] });
-  });
+  const creatingMessages = messages.map(message => Message.create(message));
 
   return Promise.all([creatingMessages]);
 })
-.then(function () {
-  console.log("Finished inserting data (press ctrl-c to exit)");
-})
-.catch(function (err) {
-  console.error('There was totally a problem', err, err.stack);
-});
+.then(() => console.log("Finished inserting data (press ctrl-c to exit)"))
+.catch(err => console.error('There was a problem', err, err.stack));
