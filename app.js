@@ -1,10 +1,10 @@
-var express = require('express');
-var app = express();
-var db = require('./models').db;
-var nunjucks = require('nunjucks');
-var volleyball = require('volleyball');
-var bodyParser = require('body-parser');
-var router = require('./routes');
+const express = require('express');
+const app = express();
+const db = require('./models').db;
+const volleyball = require('volleyball');
+const bodyParser = require('body-parser');
+const router = require('./routes');
+const path = require('path');
 
 // logging middleware
 app.use(volleyball);
@@ -13,16 +13,13 @@ app.use(volleyball);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// nunjucks boilerplate
-nunjucks.configure('views', { noCache: true });
-app.set('view engine', 'html');
-app.engine('html', nunjucks.render);
-
 // statically serving public folder
 app.use(express.static(__dirname + '/public'));
 
 // add routes
-app.use(router);
+app.use('/api', router);
+
+app.get('/', (req, res, next) => res.send(path.join(__dirname, './public/index.html')));
 
 // error-handling middleware
 app.use(function (err, req, res, next) {
@@ -34,9 +31,9 @@ app.use(function (err, req, res, next) {
 // sync w/ db and app listen on a port
 db.sync()
 .then(function(){
-	console.log('all sync\'d with the db!');
+	console.log('All sync\'d with the db!');
 	app.listen(1234, function(){
-		console.log('app is listening intently on port 1234...')
+		console.log('Server is listening intently on port 1234...')
 	})
 })
 .catch(console.error)

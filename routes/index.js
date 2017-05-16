@@ -3,34 +3,12 @@ var router = express.Router();
 var Message = require('../models').Message;
 var User = require('../models').User;
 
-// this will be replaced soon by info from the DB
-// var messages = [
-// 	{
-// 		text: "Hi!",
-// 		email: "nick@nick.com"
-// 	}, 
-// 	{
-// 		text: "Hello there.",
-// 		email: "molly@molly.com"
-// 	}, 
-// 	{
-// 		text: "Do you want a treat?",
-// 		email: "emily@emily.com"
-// 	}
-// ];
-
 // route to handle homepage
 router.get('/', function(req, res, next){
-	// try {
-	// 	synchronousMethod();
-	// } catch(err) {
-	// 	next(err);
-	// }
-
 	Message.findAll()
 	.then(function(messages){
-		res.render('index', {
-			messages: messages
+		res.json({
+			messages
 		});
 	})
 	.catch(next);

@@ -1,5 +1,5 @@
 var Sequelize = require('sequelize');
-var db = new Sequelize('postgres://localhost:5432/mia_msgs');
+var db = new Sequelize('postgres://localhost:5432/mia_msgs', { logging: false });
 
 var Message = db.define('Message', {
 	text: {
