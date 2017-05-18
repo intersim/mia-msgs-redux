@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import FormContainer from './FormContainer';
-import Likes from './Likes';
+import LikesContainer from './LikesContainer';
 import Messages from './Messages';
 import axios from 'axios';
 import store from './redux';
@@ -9,11 +9,9 @@ class Main extends Component {
   constructor() {
     super();
     this.state = {
-      messages: [],
-      likes: 0
+      messages: []
     }
 
-    this.addLike = this.addLike.bind(this);
     this.addMessage = this.addMessage.bind(this);
   }
 
@@ -26,34 +24,18 @@ class Main extends Component {
         }));
   }
 
-  addLike() {
-    store.dispatch({
-      type: 'ADD_LIKE'
-    });
-  }
-
   componentDidMount() {
     	axios.get('/api/messages')
       .then(res => res.data)
       .then(messages => this.setState({ messages }))
       .catch(console.error.bind(console));
-
-      this.unsubscribe = store.subscribe(() => {
-        this.setState({
-          likes: store.getState().likes
-        })
-      })
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
   }
 
   render() {
     return (<div>
       <div className="row center">
         <img src="mia.jpg" className="mb2" />
-        <Likes likes={this.state.likes} addLike={this.addLike} />
+        <LikesContainer />
       </div>
       <div className="row">
         <FormContainer addMessage={this.addMessage} />

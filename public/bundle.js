@@ -10661,9 +10661,9 @@ var _FormContainer = __webpack_require__(115);
 
 var _FormContainer2 = _interopRequireDefault(_FormContainer);
 
-var _Likes = __webpack_require__(116);
+var _LikesContainer = __webpack_require__(239);
 
-var _Likes2 = _interopRequireDefault(_Likes);
+var _LikesContainer2 = _interopRequireDefault(_LikesContainer);
 
 var _Messages = __webpack_require__(117);
 
@@ -10696,11 +10696,9 @@ var Main = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this));
 
     _this.state = {
-      messages: [],
-      likes: 0
+      messages: []
     };
 
-    _this.addLike = _this.addLike.bind(_this);
     _this.addMessage = _this.addMessage.bind(_this);
     return _this;
   }
@@ -10720,13 +10718,6 @@ var Main = function (_Component) {
       });
     }
   }, {
-    key: 'addLike',
-    value: function addLike() {
-      _redux2.default.dispatch({
-        type: 'ADD_LIKE'
-      });
-    }
-  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       var _this3 = this;
@@ -10736,17 +10727,6 @@ var Main = function (_Component) {
       }).then(function (messages) {
         return _this3.setState({ messages: messages });
       }).catch(console.error.bind(console));
-
-      this.unsubscribe = _redux2.default.subscribe(function () {
-        _this3.setState({
-          likes: _redux2.default.getState().likes
-        });
-      });
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      this.unsubscribe();
     }
   }, {
     key: 'render',
@@ -10758,7 +10738,7 @@ var Main = function (_Component) {
           'div',
           { className: 'row center' },
           _react2.default.createElement('img', { src: 'mia.jpg', className: 'mb2' }),
-          _react2.default.createElement(_Likes2.default, { likes: this.state.likes, addLike: this.addLike })
+          _react2.default.createElement(_LikesContainer2.default, null)
         ),
         _react2.default.createElement(
           'div',
@@ -11916,10 +11896,6 @@ var reducer = function reducer() {
 };
 
 var store = (0, _redux.createStore)(reducer);
-
-store.subscribe(function () {
-    //   console.log(store.getState());
-});
 
 exports.default = store;
 
@@ -27037,6 +27013,90 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+/* 239 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(18);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _redux = __webpack_require__(119);
+
+var _redux2 = _interopRequireDefault(_redux);
+
+var _Likes = __webpack_require__(116);
+
+var _Likes2 = _interopRequireDefault(_Likes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LikesContainer = function (_Component) {
+    _inherits(LikesContainer, _Component);
+
+    function LikesContainer() {
+        _classCallCheck(this, LikesContainer);
+
+        var _this = _possibleConstructorReturn(this, (LikesContainer.__proto__ || Object.getPrototypeOf(LikesContainer)).call(this));
+
+        _this.state = {
+            likes: 0
+        };
+
+        _this.addLike = _this.addLike.bind(_this);
+        return _this;
+    }
+
+    _createClass(LikesContainer, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            this.unsubscribe = _redux2.default.subscribe(function () {
+                _this2.setState({
+                    likes: _redux2.default.getState().likes
+                });
+            });
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            this.unsubscribe();
+        }
+    }, {
+        key: 'addLike',
+        value: function addLike() {
+            _redux2.default.dispatch({
+                type: 'ADD_LIKE'
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(_Likes2.default, { likes: this.state.likes, addLike: this.addLike });
+        }
+    }]);
+
+    return LikesContainer;
+}(_react.Component);
+
+exports.default = LikesContainer;
 
 /***/ })
 /******/ ]);
