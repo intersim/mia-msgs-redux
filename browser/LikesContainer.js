@@ -1,38 +1,21 @@
 import React, { Component } from 'react';
 import store from './redux';
 import Likes from './Likes';
+import { connect } from 'react-redux'
 
-class LikesContainer extends Component {
-    constructor() {
-        super();
-        this.state = {
-            likes: 0
-        }
+// state to props: likes
+// dispatch to props: addLikes
 
-        this.addLike = this.addLike.bind(this);
-    }
+const mapStateToProps = state => ({
+    likes: state.likes
+});
 
-    componentDidMount() {
-        this.unsubscribe = store.subscribe(() => {
-            this.setState({
-                likes: store.getState().likes
-            });
+const mapDispatchToProps = dispatch => ({
+    addLike() {
+        dispatch({
+            type: 'ADD_LIKE'
         });
     }
+})
 
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
-
-    addLike() {
-        store.dispatch({
-            type: 'ADD_LIKE'
-        })
-    }
-
-    render() {
-        return <Likes likes={this.state.likes} addLike={this.addLike} />
-    }
-}
-
-export default LikesContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(Likes);
