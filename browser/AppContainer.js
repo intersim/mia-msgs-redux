@@ -38,11 +38,15 @@ class Main extends Component {
       .then(messages => this.setState({ messages }))
       .catch(console.error.bind(console));
 
-      store.subscribe(() => {
+      this.unsubscribe = store.subscribe(() => {
         this.setState({
           likes: store.getState().likes
         })
       })
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   render() {
