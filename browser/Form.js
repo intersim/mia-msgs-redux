@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 
-const Form = () => (
+const Form = props => (
 	<div className="col col-6 pr3">
 		<h1>Send Mia a Message!</h1>
-		<form>
+		<form onSubmit={props.handleSubmit}>
 			<div>
 				<label htmlFor="email">Email</label>
-				<input type="text" name="email" />
+				<input onChange={props.handleChange} type="text" name="email" value={props.emailVal} />
 			</div>
 
 			<div>
 				<label htmlFor="text">Text</label>
-				<input type="text" name="text" />
+				<input onChange={props.handleChange} type="text" name="text" value={props.textVal} />
 			</div><br />
 
 			<button type="Submit">Submit</button>
