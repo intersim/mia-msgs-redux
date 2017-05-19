@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import store from './redux';
 import Likes from './Likes';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 // state to props: likes
 // dispatch to props: addLikes
 
-const mapStateToProps = state => ({
-    likes: state.likes
+const mapStateToProps = ({ likes }) => ({
+    likes
 });
 
 const mapDispatchToProps = dispatch => ({
